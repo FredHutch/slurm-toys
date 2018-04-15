@@ -1,19 +1,19 @@
-slurm-toys
-==========
+slurm-toys (aka awesome-slurm)
+==============================
 
-helper tools for the SLURM HPC workload manager used at Fred Hutch and elsewhere
+A collection of slurm command line tools and wrappers mostly found on github
 
 why slurm-toys
 --------------
 
-The purpose of slurm-toys is to package useful SLURM helper tools written in Python or Shell into a
-single package published on PyPI
+The purpose of slurm-toys is to package useful SLURM helper tools written in Python 3 or Shell and
+publish them into a single package on PyPI
 
 currently integrated toys
 -------------------------
 
 slurm-limiter
-=============
+~~~~~~~~~~~~~
 
 HPC clusters are optimized to maximize utilization for batch jobs. FairShare helps to ensure that
 all users get an appropriate amount of resources over time. However FairShare can only influence
@@ -38,16 +38,18 @@ If you want a responsive HPC cluster this should take no longer than 5 sec:
 
 example use in a cron job, running every 20 min:
 
-*/20 * \* \* \* root ( ml Python/3.6.4-foss-2016b-fh1; /app/scadmin/bin/slurm-limiter.py -p campus
---error-email=sysadmin@institute.org --minaccountlimit=50 --maxaccountlimit=350
---slaaccountlimit=300 --changestep=50 --maxpercentuse=90 --minidlenodes=5 )
->>/var/tmp/slurm-limiter.log 2>&1
+::
+
+    */20 * * * * root (  ml Python/3.6.4-foss-2016b-fh1; /app/bin/slurm-limiter -p campus \ 
+                       --error-email=sysadmin\@institute.org --minaccountlimit=50 --maxaccountlimit=350 \ 
+                       --slaaccountlimit=300 --changestep=50 --maxpercentuse=90 \
+                       --minidlenodes=5 ) >>/var/tmp/slurm-limiter.log 2>&1
 
 example output to syslog:
 
 ::
 
-    grep slurm-limiter: /var/log/syslog
+    ~$ grep slurm-limiter: /var/log/syslog
     Apr 15 09:40:03 gizmo-ctld slurm-limiter: INFO:slurm-limiter.85: Cores: running=689, pending=3299, total=1180, Usage=58 %, Limits: 350 / 370, Nodes: idle=101
     Apr 15 10:00:03 gizmo-ctld slurm-limiter: INFO:slurm-limiter.85: Cores: running=689, pending=3274, total=1180, Usage=58 %, Limits: 350 / 370, Nodes: idle=101
     Apr 15 10:20:03 gizmo-ctld slurm-limiter: INFO:slurm-limiter.85: Cores: running=680, pending=3241, total=1180, Usage=57 %, Limits: 350 / 370, Nodes: idle=102
@@ -114,3 +116,12 @@ output of slurm-limiter --help
 
 future toys
 -----------
+
+in the future we can integrate other tools, predominantly stuff found on github
+
+https://github.com/search?l=Python&p=1&q=slurm+&type=Repositories
+
+https://github.com/search?l=Shell&q=slurm+&type=Repositories
+
+new tool
+~~~~~~~~

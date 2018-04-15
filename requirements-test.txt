@@ -1,4 +1,5 @@
-paramiko
+pandas
 requests
-
+python-hostlist
+slurm-pipeline
 
