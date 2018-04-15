@@ -21,11 +21,7 @@ CLASSIFIERS = [
     "Intended Audience :: System Administrators",
     "License :: OSI Approved :: Apache Software License",
     "Natural Language :: English",
-    "Operating System :: MacOS :: MacOS X",
-    "Operating System :: POSIX",
     "Operating System :: POSIX :: Linux",
-    "Operating System :: POSIX :: Other",
-    "Operating System :: Unix",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.5",
     "Programming Language :: Python :: 3.6",
@@ -39,10 +35,10 @@ CLASSIFIERS = [
 setup(
     name='slurm-toys',
     version=__version__,
-    description='a ',
+    description='helper tools for the SLURM HPC workload manager used at Fred Hutch and elsewhere',
     long_description=open('README.rst', 'r').read(),
-    packages=['prox'],
-    scripts=['prox/prox'],
+    packages=['slurm_toys'],
+    #scripts=['bin/slurm-toys'],
     author = 'dipe',
     author_email = 'dp@nowhere.com',
     url = 'https://github.com/FredHutch/slurm-toys',
@@ -50,15 +46,16 @@ setup(
     keywords = ['slurm', 'hpc', 'scientific computing'], # arbitrary keywords
     classifiers = CLASSIFIERS,
     install_requires=[
-        'paramiko',
-        'requests'
+        'pandas',
+        'requests',
+        'python-hostlist',
         ],
     entry_points={
         # we use console_scripts here to allow virtualenv to rewrite shebangs
         # to point to appropriate python and allow experimental python 2.X
         # support.
         'console_scripts': [
-            'cmdprox.py=prox.cmdprox:main',
+            'slurm-limiter=slurm_toys.slurm-limiter:main',
         ]
     }
 )
