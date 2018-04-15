@@ -1,6 +1,6 @@
 from setuptools import setup
 
-__version__ = "0.1"
+__version__ = "0.2"
 
 #try:
 #    from pypandoc import convert
@@ -55,7 +55,7 @@ setup(
         # to point to appropriate python and allow experimental python 2.X
         # support.
         'console_scripts': [
-            'slurm-limiter.py=slurm_toys.slurm_limiter:main',
+            'slurm-limiter=slurm_toys.slurm_limiter:main',
         ]
     }
 )
