@@ -55,7 +55,7 @@ setup(
         # to point to appropriate python and allow experimental python 2.X
         # support.
         'console_scripts': [
-            'slurm-limiter=slurm_toys.slurm-limiter:main',
+            'slurm-limiter.py=slurm_toys.slurm-limiter:main',
         ]
     }
 )
