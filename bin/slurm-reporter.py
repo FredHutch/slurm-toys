@@ -3,6 +3,8 @@
 # slurm-reporter reads the database table export (tsv) of the slurm_jobs table
 # and groups all jobs by the full hour and 
 #
+# export slurm data: echo "select * from mycluster_job_table;" | mysql slurm_acct_db > mycluster_job_table.tsv
+#
 # slurm-reporter dirkpetersen / Apr 2020
 #
 
@@ -31,10 +33,9 @@ def main():
     print('   Reading TSV file .....')
     df=pandas.read_csv(args.tsvfile,sep='\t', low_memory=0)
     df1=df.filter(['id_job','job_name','account','id_user','partition','work_dir','time_submit','time_start','time_end','cpus_req'], axis=1)
-    df.drop()
     df = df1.query('time_start>0 & time_end>0 ')
     df['cpu_sec'] = (df['time_end'] - df['time_start']) * df['cpus_req']
-    df['hour_start']=pd.to_datetime(df['time_start'], unit = 's').dt.round('60min')
+    df['hour_start']=pandas.to_datetime(df['time_start'], unit = 's').dt.round('60min')
     print('   Writing to Pickle .....')
     df.to_pickle('%s.zip' % filebase)
     print('   Writing to Excel .....')
@@ -73,7 +74,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(prog='slurm-reporter',
         description='slurm-reporter processes an export of the slurm jobs table ' + \
         'cluster and adjusts the account and user limits dynamically within certain range')
-    parser.add_argument( 'tsvfile', action='store', type='str',
+    parser.add_argument( 'tsvfile', action='store', 
         help='output of xxx_job_table as tab delimited file',
         default='' )    
     parser.add_argument( '--debug', '-d', dest='debug', action='store_true',
